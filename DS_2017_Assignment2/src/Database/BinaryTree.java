@@ -2,6 +2,7 @@ package Database;
 
 import java.util.ArrayList;
 
+
 /**
  * Uses a binary search tree to store a database of
  * PlayStation users. Nodes are ordered by user unique key (see the
@@ -356,9 +357,10 @@ public class BinaryTree {
 	 * @return A string version of the tree
 	 */
 	public String toString() {
+		
+		String finalString = this.assistTostring(this.root);	
 					
-		return this.assistTostring(this.root);
-						
+		return finalString.substring(0, finalString.length() - 1);						
 	}
 	
 	
@@ -368,24 +370,24 @@ public class BinaryTree {
 		// declare an empty string				
 		String resultString = "";
 		
-		
+		// traversing the tree nodes through the in order method and
+		// combine the final result string. 
 		if(root != null) {
+												
+			resultString += this.assistTostring(root.getLeft());
+			
 			
 			resultString += root.toString() + "\n";
-			
-			
-			resultString += this.assistTostring(root.getLeft());
 			
 			
 			resultString += this.assistTostring(root.getRight());
 						
 		}
-		
-		
+				
 		// return the resulting string. If it is empty,
 		// it will return an empty string else, it will
-		// return the combined final string to the console.
-		return resultString;
+		// return the combined final string to the console.						
+		return resultString;				
 	}
 	
 	
