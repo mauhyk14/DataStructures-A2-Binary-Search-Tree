@@ -21,13 +21,13 @@ public class User {
 	private GameList games;
 	private Calendar dob;
 	private User left;
-	private User right;
+	private User right;	
 
 	public User(String username, Calendar dob, int level) {
 		
 		this.username = username;
 		this.dob = dob;
-		this.level = level;		
+		this.level = level;			
     }
 
     /**
@@ -72,8 +72,7 @@ public class User {
     						 "Trophies: " + "\n" + trophieString + "\n" + 
     						 "Games: " + "\n" + this.games.toString() + "\n" + 
     						 "\n" + "Birth Date: " + printDate;
-    	
-    	
+    	   	
 		return finalString;
 	}
     
@@ -132,8 +131,48 @@ public class User {
 		}
 				
 	}
-    
-       
+	
+	// this method will count how many platinum trophies this
+	// user has earned.
+	public int countPlatinums() {
+		
+		int counter = 0;
+		
+		
+		for(int i = 0; i < this.trophies.size(); i++) {
+			
+			
+			if(this.trophies.get(i).getRank().equals(Trophy.Rank.PLATINUM)) {
+				
+				counter++;
+			}
+						
+		}
+		
+		return counter;
+		
+	}
+	
+	
+	// this method will count how many gold trophies this person has earned.
+	public int countGolds() {
+
+		int counter = 0;
+
+		for (int i = 0; i < this.trophies.size(); i++) {
+
+			if (this.trophies.get(i).getRank().equals(Trophy.Rank.GOLD)) {
+
+				counter++;
+			}
+
+		}
+
+		return counter;
+
+	}
+	
+	        
 	public Object getUsername() {
 		// TODO Auto-generated method stub
 		return this.username;

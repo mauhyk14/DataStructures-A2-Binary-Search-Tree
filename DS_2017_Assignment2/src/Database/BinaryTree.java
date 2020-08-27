@@ -73,9 +73,7 @@ public class BinaryTree {
 				
 				throw new IllegalArgumentException ();
 			}
-			
-			
-			
+									
 			return false;
 		}
 		
@@ -146,23 +144,22 @@ public class BinaryTree {
 
 			return 0;
 		}
-		
-		
+
 		else {
-		
-		if (root.getLevel() > reference.getLevel()) {
 
-			counter++;
+			if (root.getLevel() > reference.getLevel()) {
+
+				counter++;
+			}
+
+			counter += this.assisCountbetterPlayer(root.getLeft(), reference);
+
+			counter += this.assisCountbetterPlayer(root.getRight(), reference);
+
+			return counter;
+
 		}
 
-		counter += this.assisCountbetterPlayer(root.getLeft(), reference);
-
-		counter += this.assisCountbetterPlayer(root.getRight(), reference);
-
-		return counter;
-		
-		}
-		
 	}
 	
 	
@@ -250,8 +247,86 @@ public class BinaryTree {
 	 * @return the user with the most platinum trophies, or null if there are none
 	 */
 	public User mostPlatinums() {
-		return null;
+		
+		// if the root is empty, it means there is no node 
+		// in the tree. We return null.
+		if(this.root == null) {
+			
+			return null;
+		}
+		
+		
+		else {
+									
+			return this.assistMostplatinum(this.root);			
+			
+		}				
 	}
+	
+	
+	public User assistMostplatinum(User passInnode) {
+				
+		// This is the base method for the recursion.
+		// If the passInnode object is null, we return null.
+		if(passInnode == null) {
+			
+			return null;
+		}
+		
+				
+		else {
+			
+			// assume the passinNode object is the maximum.
+			User max = passInnode;
+			
+			// recursively update the left node and compare the object
+			// with max object.
+			if(passInnode.getLeft() != null) {
+				
+				User leftMax = this.assistMostplatinum(passInnode.getLeft());
+								
+				
+				if(leftMax.countPlatinums() > max.countPlatinums()) {
+					
+					max = leftMax;
+				}
+				
+				
+				else if(leftMax.countPlatinums() == max.countPlatinums() &&
+						leftMax.countGolds() > max.countGolds()) {
+					
+					max = leftMax;
+				}
+								
+			}
+						
+			// recursively update the right node and compare the object
+			// with max object.			
+			if (passInnode.getRight() != null) {
+				
+				User rightMax = this.assistMostplatinum(passInnode.getRight());
+				
+
+				if (rightMax.countPlatinums() > max.countPlatinums()) {
+
+					max = rightMax;
+				}
+
+				else if (rightMax.countPlatinums() == max.countPlatinums()
+						&& rightMax.countGolds() > max.countGolds()) {
+
+					max = rightMax;
+				}
+
+			}
+			
+			// return the final max object.
+			return max;			
+		}
+				
+	}
+	
+	
 
 	/**
 	 * You or one of your friends bought a new game! This method should add it to their
@@ -304,13 +379,32 @@ public class BinaryTree {
 				throw new IllegalArgumentException();
 			}
 			
+			// the find friend method will determine whether 
+			// the pass in user exist in our tree.
+			User temp = this.findFriend(this.root, username);
+			
+			if(temp != null) {
+				
+				// if this user exist in our tree, next, we check whether
+				// this user already own the trophy by using the index method.
+				int trophieIndex = temp.getTrophies().indexOf(trophy);
+				
+				// -1 indicates the trophy does not exist,
+				// we use the in-build add method to add this trophy 
+				// to this user.
+				if(trophieIndex == -1) {
+					
+					temp.getTrophies().add(trophy);
+				}
+								
+			}
+									
 		}
 		
 		catch(IllegalArgumentException e) {
 			
 			throw e;
-		}
-		
+		}		
 	}
 
 	/**
@@ -391,8 +485,7 @@ public class BinaryTree {
 	}
 	
 	
-	
-			
+				
 	/* my custom method to find a user in the tree,
 	 * this method will ignore the search principle but
 	 * follow the pre-order search method.*/
