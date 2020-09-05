@@ -73,8 +73,29 @@ public class BinaryTree {
 				
 				throw new IllegalArgumentException ();
 			}
-									
-			return false;
+			
+			
+			// this will check the user exist in our tree.
+			User temp = this.findFriend(this.root, friend.getUsername().toString());
+			
+			// if temp is null, we know that the node doesn't exist
+			// in our tree or this root is null, we know that the tree is empty.
+			// We return null right away.
+			if(temp == null || this.root == null) {
+				
+				return false;
+			}
+			
+			
+			// else we call the defriendassist method
+			// to delete the User object.
+			else {
+				
+				this.defriendAssist(this.root, friend);
+				
+				return true;
+			}
+															
 		}
 		
 		catch (IllegalArgumentException e) {
@@ -82,7 +103,117 @@ public class BinaryTree {
 			throw e;
 		}
 	}
+	
+	
+	
 
+	public User defriendAssist(User root, User friend) {
+		
+								
+		if(root.getKey() > friend.getKey()) {
+			
+			User tempUserleft = this.defriendAssist(root.getLeft(), friend);
+						
+			root.setLeft(tempUserleft);
+		}
+		
+						
+		else if(root.getKey() < friend.getKey()) {
+			
+			
+			User tempUserright = this.defriendAssist(root.getRight(), friend);
+			
+			root.setRight(tempUserright);
+		}
+		
+		// this is where you handle the deletion
+		else {
+			
+			
+			// Case 1: if the target node has no leaf node.
+			if (root.getLeft() == null && 
+				root.getRight() == null) {
+
+				return null;
+			}
+			
+			
+			// Case 2: if the target node has one leaf node		
+			// the target node has no left node (it has only one node),
+			// it returns the right node.
+			else if (root.getLeft() == null) {
+
+				return root.getRight();
+			}
+			
+			// the target node has no right node (it has only one node as well),
+			// it returns the left node.
+			else if (root.getRight() == null) {
+
+				return root.getLeft();
+			}
+			
+			
+			// Case 3: if the target node has 2 leaf nodes			
+			// the target node has 2 children nodes
+			else {
+				
+				// target object returns the minimum of the right subtree.
+				/*
+				 * User target2 = this.findMinRight(root.getRight());
+				 * root.setRight(this.defriendAssist(root.getRight(), target2));
+				 */
+				
+				// find the maximum of the left subtree
+				User target = this.findMaxleft(root.getLeft());
+				
+				System.out.println("!!!!!!!:  " + target.getUsername());
+				System.out.println("-------: " + target.getKey());
+				
+				root.setLeft(this.defriendAssist(root.getLeft(), target));
+				
+			}
+
+		}
+					
+		return root;
+	}
+	
+	
+		
+	// this method find the minimum value of the right
+	// subtree.(the most left of the right subtree)
+	public User findMinRight(User findMin) {
+		
+		User minUser = findMin;
+		
+		while (findMin.getLeft() != null) {
+
+			minUser = findMin.getLeft();
+			
+			findMin = findMin.getLeft();
+		}
+		
+		return minUser;						
+	}
+	
+	
+	// this method find the maximum of the left subtree.
+	// The most right of the left subtree.
+	public User findMaxleft(User findMax) {
+		
+		User MaxUser = findMax;		
+		
+		while(findMax.getRight() != null) {
+			
+			MaxUser = findMax.getRight();
+									
+			findMax = findMax.getRight();
+		}
+						
+		return MaxUser;
+	}
+	
 	/**
 	 * In your quest to be the very best you need to know how many
 	 * of your friends are ranked higher than you. This method should

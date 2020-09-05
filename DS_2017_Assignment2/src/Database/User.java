@@ -132,6 +132,7 @@ public class User {
 				
 	}
 	
+			
 	// this method will count how many platinum trophies this
 	// user has earned.
 	public int countPlatinums() {
@@ -187,7 +188,11 @@ public class User {
 		// TODO Auto-generated method stub
 		return this.level;
 	}
-			
+	
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
 	public double getKey() {
 		// TODO Auto-generated method stub
 		return this.calculateKey();
