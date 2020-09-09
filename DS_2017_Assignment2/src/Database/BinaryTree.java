@@ -108,7 +108,7 @@ public class BinaryTree {
 	
 
 	public User defriendAssist(User root, User friend) {
-		
+						
 								
 		if(root.getKey() > friend.getKey()) {
 			
@@ -128,7 +128,7 @@ public class BinaryTree {
 		
 		// this is where you handle the deletion
 		else {
-			
+								
 			
 			// Case 1: if the target node has no leaf node.
 			if (root.getLeft() == null && 
@@ -155,7 +155,7 @@ public class BinaryTree {
 			
 			
 			// Case 3: if the target node has 2 leaf nodes			
-			// the target node has 2 children nodes
+			// the target node has 2 children nodes.
 			else {
 				
 				// target object returns the minimum of the right subtree.
@@ -170,17 +170,34 @@ public class BinaryTree {
 				System.out.println("!!!!!!!:  " + target.getUsername());
 				System.out.println("-------: " + target.getKey());
 				
-				root.setLeft(this.defriendAssist(root.getLeft(), target));
+				
+				//-----------------------------------
+				
+				// i think this is where the problem is???
+				// got stuck in here!!!!!!
+				// this is where you delete the target and return 
+				// the target's root.
+				User temp = this.defriendAssist(root.getLeft(), target);
+				
+				System.out.println("temppppppp: "+temp.getUsername());
+				
+				System.out.println("I am root:   "+root.getUsername());
+								
+				root.setLeft(temp);
+				
+				
+				System.out.println(root.getUsername());
+								
+				//----------------------------------
+				
 				
 			}
-
 		}
-					
+		
 		return root;
 	}
 	
-	
-		
+			
 	// this method find the minimum value of the right
 	// subtree.(the most left of the right subtree)
 	public User findMinRight(User findMin) {
@@ -293,8 +310,7 @@ public class BinaryTree {
 
 	}
 	
-	
-	
+		
 	/**
 	 * Bragging rights are well earned, but it's good to be sure that you're actually
 	 * better than those over whom you're lording your achievements. This method
