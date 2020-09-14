@@ -179,6 +179,7 @@ public class BinaryTree {
 				
 				
 				// this will cause null point exception!!!!
+				// because the root has not right subtree.
 				//System.out.println(root.getRight().getUsername());
 				
 				// -----------------------------------
