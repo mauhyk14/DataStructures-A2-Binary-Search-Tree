@@ -90,8 +90,7 @@ public class BinaryTree {
 			// else we call the defriendassist method
 			// to delete the User object.
 			else {
-				System.out.println("NEW wwwww" + friend.getUsername());
-				
+								
 				this.defriendAssist(this.root, friend);
 				
 				return true;
@@ -107,15 +106,11 @@ public class BinaryTree {
 	
 	
 	
-
 	public User defriendAssist(User root, User friend) {
 		
-		System.out.println("OLD222 " + root.getUsername() + "FRIEND" + friend.getUsername());
-						
-								
+		
 		if(root.getKey() > friend.getKey()) {
-			System.out.println("OLD11111  " + root.getUsername());
-			
+						
 			User tempUserleft = this.defriendAssist(root.getLeft(), friend);
 						
 			root.setLeft(tempUserleft);
@@ -161,55 +156,25 @@ public class BinaryTree {
 			// Case 3: if the target node has 2 leaf nodes			
 			// the target node has 2 children nodes.
 			else {
-				
-				// target object returns the minimum of the right subtree.
-				/*
-				 * User target2 = this.findMinRight(root.getRight());
-				 * root.setRight(this.defriendAssist(root.getRight(), target2));
-				 */
-				
-				// find the maximum of the left subtree
-				User t=root.getLeft();
-			
-				System.out.println("Sophiiiii "+t.getRight().getUsername());
-				System.out.println("OLD  " + root.getUsername());
-			
+
 				User oldRoot = root;
-				
+
+				// find the maximum of the left subtree
 				User target = this.findMaxleft(root.getLeft());
-				
-				System.out.println("!!!!!!!&&&&&:   " + target.getUsername());
+
 				root = target;
-				
-				
-				
-				
-				
-				//-----------------------------------
-				
+
+				// -----------------------------------
+
 				// i think this is where the problem is???
 				// got stuck in here!!!!!!
-				// this is where you delete the target and return 
+				// this is where you delete the target and return
 				// the target's root.
-				
-				
-				
+
 				oldRoot.setLeft(this.defriendAssist(oldRoot.getLeft(), target));
-			
-				oldRoot.setRight(t);
-				
-				
-				
-				
-								
-				//root.setLeft(temp);
-				
-				
-				
-								
-				//----------------------------------
-				
-				
+
+				// ----------------------------------
+
 			}
 		}
 		
@@ -220,37 +185,32 @@ public class BinaryTree {
 	// this method find the minimum value of the right
 	// subtree.(the most left of the right subtree)
 	public User findMinRight(User findMin) {
-		
+
 		User minUser = findMin;
-		
+
 		while (findMin.getLeft() != null) {
 
 			minUser = findMin.getLeft();
-			
+
 			findMin = findMin.getLeft();
 		}
-		
-		return minUser;						
+
+		return minUser;
 	}
 	
 	
 	// this method find the maximum of the left subtree.
 	// The most right of the left subtree.
 	public User findMaxleft(User findMax) {
-		
-		System.out.println("found one-----" + findMax.getUsername());
-		
-		User MaxUser = findMax;		
-		
-		while(findMax.getRight() !=  null) {
-			System.out.println("inside-----");
-			
+
+		User MaxUser = findMax;
+
+		while (findMax.getRight() != null) {
+
 			MaxUser = findMax.getRight();
-									
+
 			findMax = findMax.getRight();
 		}
-		System.out.println("found one-----" + findMax.getUsername());
-						
 		return MaxUser;
 	}
 	
