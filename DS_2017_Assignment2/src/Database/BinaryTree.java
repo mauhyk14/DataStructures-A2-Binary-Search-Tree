@@ -156,24 +156,33 @@ public class BinaryTree {
 			// Case 3: if the target node has 2 leaf nodes			
 			// the target node has 2 children nodes.
 			else {
-
+				
+				// create a new user variable and
+				// store the old root reference.
 				User oldRoot = root;
-
+								
 				// find the maximum of the left subtree
 				User target = this.findMaxleft(root.getLeft());
-
+								
+				// replace the current root to the 
+				// maximum of the left subtree.
 				root = target;
 
+				
 				// -----------------------------------
 
-				// i think this is where the problem is???
-				// got stuck in here!!!!!!
-				// this is where you delete the target and return
-				// the target's root.
-
-				oldRoot.setLeft(this.defriendAssist(oldRoot.getLeft(), target));
-
-				// ----------------------------------
+				root.setLeft(this.defriendAssist(oldRoot.getLeft(), target));
+				
+				// at this stage, we new root has no right child subtree.
+				//?????????????????????????
+				System.out.println("!!!!! " + root.getUsername());
+				
+				
+				// this will cause null point exception!!!!
+				//System.out.println(root.getRight().getUsername());
+				
+				// -----------------------------------
+				
 
 			}
 		}
