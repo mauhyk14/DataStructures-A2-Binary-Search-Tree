@@ -66,7 +66,7 @@ public class BinaryTree {
 	 * @throws IllegalArgumentException if "friend" is null
 	 */
 	public boolean deFriend(User friend) throws IllegalArgumentException {
-		
+	
 		try {
 			
 			if(friend == null) {
@@ -90,6 +90,7 @@ public class BinaryTree {
 			// else we call the defriendassist method
 			// to delete the User object.
 			else {
+				System.out.println("NEW wwwww" + friend.getUsername());
 				
 				this.defriendAssist(this.root, friend);
 				
@@ -108,9 +109,12 @@ public class BinaryTree {
 	
 
 	public User defriendAssist(User root, User friend) {
+		
+		System.out.println("OLD222 " + root.getUsername() + "FRIEND" + friend.getUsername());
 						
 								
 		if(root.getKey() > friend.getKey()) {
+			System.out.println("OLD11111  " + root.getUsername());
 			
 			User tempUserleft = this.defriendAssist(root.getLeft(), friend);
 						
@@ -165,10 +169,20 @@ public class BinaryTree {
 				 */
 				
 				// find the maximum of the left subtree
+				User t=root.getLeft();
+			
+				System.out.println("Sophiiiii "+t.getRight().getUsername());
+				System.out.println("OLD  " + root.getUsername());
+			
+				User oldRoot = root;
+				
 				User target = this.findMaxleft(root.getLeft());
 				
-				System.out.println("!!!!!!!:  " + target.getUsername());
-				System.out.println("-------: " + target.getKey());
+				System.out.println("!!!!!!!&&&&&:   " + target.getUsername());
+				root = target;
+				
+				
+				
 				
 				
 				//-----------------------------------
@@ -177,16 +191,21 @@ public class BinaryTree {
 				// got stuck in here!!!!!!
 				// this is where you delete the target and return 
 				// the target's root.
-				User temp = this.defriendAssist(root.getLeft(), target);
 				
-				System.out.println("temppppppp: "+temp.getUsername());
 				
-				System.out.println("I am root:   "+root.getUsername());
+				
+				oldRoot.setLeft(this.defriendAssist(oldRoot.getLeft(), target));
+			
+				oldRoot.setRight(t);
+				
+				
+				
+				
 								
-				root.setLeft(temp);
+				//root.setLeft(temp);
 				
 				
-				System.out.println(root.getUsername());
+				
 								
 				//----------------------------------
 				
@@ -219,14 +238,18 @@ public class BinaryTree {
 	// The most right of the left subtree.
 	public User findMaxleft(User findMax) {
 		
+		System.out.println("found one-----" + findMax.getUsername());
+		
 		User MaxUser = findMax;		
 		
-		while(findMax.getRight() != null) {
+		while(findMax.getRight() !=  null) {
+			System.out.println("inside-----");
 			
 			MaxUser = findMax.getRight();
 									
 			findMax = findMax.getRight();
 		}
+		System.out.println("found one-----" + findMax.getUsername());
 						
 		return MaxUser;
 	}
