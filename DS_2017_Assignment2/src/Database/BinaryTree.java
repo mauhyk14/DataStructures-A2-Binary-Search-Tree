@@ -91,7 +91,7 @@ public class BinaryTree {
 			// to delete the User object.
 			else {
 								
-				this.defriendAssist(this.root, friend);
+				root = this.defriendAssist(this.root, friend);
 				
 				return true;
 			}
@@ -168,23 +168,13 @@ public class BinaryTree {
 				// maximum of the left subtree.
 				root = target;
 
-				
-				// -----------------------------------
-
+				// delete the duplicate node from the left subtree.
+				// store the left subtree reference to the new node.
 				root.setLeft(this.defriendAssist(oldRoot.getLeft(), target));
 				
-				// at this stage, we new root has no right child subtree.
-				//?????????????????????????
-				System.out.println("!!!!! " + root.getUsername());
-				
-				
-				// this will cause null point exception!!!!
-				// because the root has not right subtree.
-				//System.out.println(root.getRight().getUsername());
-				
-				// -----------------------------------
-				
-
+				// store the right subtree reference to the new node.
+				root.setRight(oldRoot);
+												
 			}
 		}
 		
