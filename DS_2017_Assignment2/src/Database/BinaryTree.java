@@ -549,7 +549,23 @@ public class BinaryTree {
 
 				throw new IllegalArgumentException();
 			}
-
+						
+			// search this user node from the tree.
+			User temp = this.findFriend(root, username);
+			
+			// if we find the node						
+			if(temp != null) {
+				
+				// we remove this node from the tree first.
+				this.deFriend(temp);
+				
+				// increase a level 
+				temp.setLevel(temp.getLevel() + 1);
+				
+				// put this node back to the tree.
+				this.beFriend(temp);
+			}
+			
 		}
 
 		catch (IllegalArgumentException e) {
